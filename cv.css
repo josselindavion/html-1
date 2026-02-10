@@ -1,0 +1,58 @@
+body {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#Experience {
+    background-color: #f0f0f0;
+    padding: 2px 20px;
+    border-width : 2px;
+    border-color : black;
+    border-style: solid;
+    border-radius: 10px;
+    margin : 10px 0px;
+}
+
+#Skills {
+    background-color: #f0f0f0;
+    padding: 2px 20px;
+    border-width : 2px;
+    border-color : black;
+    border-style: solid;
+    border-radius: 10px;
+    margin : 10px 0px;
+}
+
+#Languages {
+    background-color: #f0f0f0;
+    padding: 2px 20px;
+    border-width : 2px;
+    border-color : black;
+    border-style: solid;
+    border-radius: 10px;
+    margin : 10px 0px;
+}
+
+#Education {
+    background-color: #f0f0f0;
+    padding: 2px 20px;
+    border-width : 2px;
+    border-color : black;
+    border-style: solid;
+    border-radius: 10px;
+    margin : 10px 0px;
+}
+
+#contact {
+    background-color: #d0ccf7;
+    padding: 2px 20px;
+    border-width : 2px;
+    border-color : rgb(56, 23, 204);
+    border-style: solid;
+    border-radius: 10px;
+    margin : 10px 0px;
+}
+
+.title {
+    color: rgb(56, 23, 204);
+    font-weight: bold;
+}
