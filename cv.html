@@ -1,51 +1,68 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV Josselin Jouffre</title>
     <link rel="stylesheet" href="cv.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
-
 <body>
-    <section id="header">
-        <h1>Josselin Jouffre</h1>
-        <div id="contact">
-            <p><span class="title">Address</span> : 12 Domaine de Montvoisin, 91400, Gometz-la-Ville</p>
-            <p><span class="title">Phone number</span> : 07 69 31 69 36</p>
-            <p><span class="title">Email</span> : joss_davion@yahoo.com</p>
+    <header id="header">
+        <div class="header-identity">
+            <img src="https://via.placeholder.com/150" alt="Photo de Josselin Jouffre" class="profile-photo">
+            <h1>Josselin Jouffre</h1>
         </div>
-    </section>
+        
+        <div id="contact">
+            <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>12 Domaine de Montvoisin, 91400, Gometz-la-Ville</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📞</span>
+                <span>07 69 31 69 36</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">✉️</span>
+                <a href="mailto:joss_davion@yahoo.com">joss_davion@yahoo.com</a>
+            </div>
+        </div>
+    </header>
     
-    <section id="Experience">
-        <h2>Experience</h2>
-        <p>2025 : Assistant at INRIA</p>
-        <p>2024 and 2025 : Secretary-Receptionnist at a Notary's office</p>
-        <p>2019 : Internship at Perrot and Richard architectural engineering firm</p>
-    </section>
+    <div class="cv-grid">
+        <section id="Experience" class="container">
+            <h2>Experience</h2>
+            <p><strong>2025 :</strong> Assistant at INRIA</p>
+            <p><strong>2024 and 2025 :</strong> Secretary-Receptionnist at a Notary's office</p>
+            <p><strong>2019 :</strong> Internship at Perrot and Richard architectural engineering firm</p>
+        </section>
 
-    <section id="Education">
-        <h2>Education</h2>
-        <p>2025 : Mines Paris PSL</p>
-        <p>2023-2025 : Preparatory classes at Lakanal</p>
-        <p>2020-2023 : High school at Ste Marie</p>
-    </section>
+        <section id="Education" class="container">
+            <h2>Education</h2>
+            <p><strong>2025 :</strong> Mines Paris PSL</p>
+            <p><strong>2023-2025 :</strong> Preparatory classes at Lakanal</p>
+            <p><strong>2020-2023 :</strong> High school at Ste Marie</p>
+        </section>
 
-    <section id="Skills">
-        <h2>Skills</h2>
-        <li>Programming : Python, SQL, Html, JavaScript, CSS</li>
-        <li>Data analysis : Excel</li>
-        <br>
-    </section>
-    
-    <section id="Languages">
-        <h2>Languages</h2>
-        <li>French : native</li>
-        <li>English : C1</li>
-        <li>Spanish : A1</li>
-        <br>
-    </section>
+        <section id="Skills" class="container">
+            <h2>Skills</h2>
+            <ul>
+                <li>Programming : Python, SQL, Html, JavaScript, CSS</li>
+                <li>Data analysis : Excel</li>
+            </ul>
+        </section>
+        
+        <section id="Languages" class="container">
+            <h2>Languages</h2>
+            <ul>
+                <li>French : native</li>
+                <li>English : C1</li>
+                <li>Spanish : A1</li>
+            </ul>
+        </section>
+    </div>
 </body>
-
 </html>
