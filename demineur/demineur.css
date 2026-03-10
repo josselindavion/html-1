@@ -1,0 +1,156 @@
+/* --- RESET GLOBAL --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #e2e8f0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #1e293b; 
+}
+
+/* --- LE CONTENEUR DU JEU --- */
+#game-container {
+    /* Garde tous tes styles existants (background, padding, etc.) */
+    background-color: #ffffff;
+    padding: 32px;
+    border-radius: 12px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #cbd5e1; 
+    
+    /* AJOUTE CECI : Définit ce conteneur comme le point de repère */
+    position: relative; 
+}
+
+/* --- L'EN-TÊTE --- */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px; /* Plus d'espace sous l'en-tête */
+}
+
+#mines-count {
+    font-size: 1.4rem; /* Police agrandie (était à 1.2rem) */
+    font-weight: 800; 
+    color: #475569; 
+    letter-spacing: 0.5px;
+}
+
+#reset-button {
+    background-color: #2563eb; 
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px; /* Bouton un peu plus gros */
+    font-size: 1.1rem; /* Texte du bouton agrandi */
+    font-weight: 800;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s; 
+}
+
+#reset-button:hover {
+    background-color: #1d4ed8; 
+}
+
+/* --- LA GRILLE --- */
+#grid {
+    display: grid;
+    /* CASES AGRANDIES : on passe à 50px par case au lieu de 40px */
+    grid-template-columns: repeat(9, 50px);
+    grid-template-rows: repeat(9, 50px);
+    gap: 5px; /* L'espace entre les cases suit proportionnellement */
+    background-color: #cbd5e1; 
+    padding: 5px;
+    border-radius: 8px;
+}
+
+/* --- LES CASES --- */
+.cell {
+    background-color: #94a3b8; 
+    border-radius: 4px;
+    cursor: pointer;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-size: 1.5rem; /* Les chiffres à l'intérieur seront plus gros */
+    font-weight: 800; 
+    transition: background-color 0.1s;
+}
+
+.cell:hover {
+    background-color: #64748b; 
+}
+
+/* --- ÉTAT : CASE RÉVÉLÉE --- */
+.cell.revealed {
+    background-color: #f8fafc; 
+    cursor: default;
+}
+
+.cell.revealed:hover {
+    background-color: #f8fafc; 
+}
+
+/* --- ÉTAT : MINE --- */
+.cell.mine {
+    background-color: #ef4444; 
+    color: white;
+}
+
+/* --- ÉTAT : DRAPEAU --- */
+.cell.flagged {
+    background-color: #fbbf24; 
+    color: white;
+}
+
+/* --- COULEURS DES CHIFFRES --- */
+.cell[data-value="1"] { color: #2563eb; } 
+.cell[data-value="2"] { color: #16a34a; } 
+.cell[data-value="3"] { color: #dc2626; } 
+.cell[data-value="4"] { color: #7e22ce; }
+
+
+/* --- MESSAGES DE FIN DE JEU --- */
+#message-win, #message-lose {
+    /* REMPLACE 'fixed' par 'absolute' */
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* AJOUTE CECI : Pour être sûr que le message passe au-dessus de la grille */
+    z-index: 10; 
+    
+    /* Garde le reste de tes styles (background, padding, bordures, ombres...) */
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    display: none;
+}
+
+/* Style spécifique pour la Victoire */
+#message-win {
+    border: 2px solid #16a34a; /* Rebord vert */
+    box-shadow: 0 8px 30px rgba(22, 163, 74, 0.15); /* Ombre verte douce */
+}
+
+/* Style spécifique pour la Défaite */
+#message-lose {
+    border: 2px solid #ef4444; /* Rebord rouge */
+    box-shadow: 0 8px 30px rgba(239, 68, 68, 0.15); /* Ombre rouge douce */
+}
+
+/* --- CLASSES POUR AFFICHER LE MESSAGE --- */
+#message-win.show, #message-lose.show {
+    display: block;
+}
