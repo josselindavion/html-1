@@ -28,3 +28,39 @@ class ConnectionManager:
                 await connection.send_text(message)
 
 manager = ConnectionManager()
+
+#ROUTE HTTP CLASSIQUE (L'historique)
+@app.get("/api/history/{room}")
+def get_room_history(room: str, db: Session = Depends(get_db)):
+    # On va chercher dans la BDD tous les messages de ce salon
+    messages = db.query(Message).filter(Message.room == room).all()
+    # On renvoie du JSON classique
+    return [{"username": m.username, "content": m.content} for m in messages]
+
+
+#ROUTE WEBSOCKET (Le direct)
+@app.websocket("/ws/{room}/{username}")
+async def chat_endpoint(websocket: WebSocket, room: str, username: str, db: Session = Depends(get_db)):
+    # 1. L'utilisateur se connecte
+    await manager.connect(websocket, room)
+    
+    try:
+        # 2. On écoute en permanence (boucle infinie)
+        while True:
+            # On attend un texte du client
+            texte_recu = await websocket.receive_text()
+            
+            # 3. On sauvegarde dans la base de données
+            nouveau_message = Message(room=room, username=username, content=texte_recu)
+            db.add(nouveau_message)
+            db.commit() # On valide l'enregistrement
+            
+            # 4. On diffuse à tout le salon
+            await manager.broadcast(f"<b>{username}</b>: {texte_recu}", room)
+            
+    except WebSocketDisconnect:
+        # 5. Si le tuyau casse (l'utilisateur ferme l'onglet)
+        manager.disconnect(websocket, room)
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8000, reload=True)
