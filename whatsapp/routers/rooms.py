@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 
 from database import get_session
-from models import Room, RoomCreate, Subscription, User
+from models import Room, RoomCreate, Subscription, User, Message
 
 router = APIRouter(prefix="/rooms", tags=["rooms"])
 
@@ -54,3 +54,22 @@ def unsubscribe(room_id: int, user_id: int, session: Session = Depends(get_sessi
     session.delete(sub)
     session.commit()
     return {"message": "Désabonné avec succès"}
+
+
+@router.get("/{room_id}/messages")
+def get_messages(room_id: int, session: Session = Depends(get_session)):
+    if not session.get(Room, room_id):
+        raise HTTPException(status_code=404, detail="Salon introuvable")
+    messages = session.exec(
+        select(Message).where(Message.room_id == room_id)
+    ).all()
+    result = []
+    for msg in messages:
+        user = session.get(User, msg.user_id)
+        result.append({
+            "id": msg.id,
+            "content": msg.content,
+            "timestamp": msg.timestamp.isoformat(),
+            "username": user.name if user else "inconnu",
+        })
+    return result
