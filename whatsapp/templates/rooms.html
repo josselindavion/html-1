@@ -3,9 +3,10 @@
 
 {% block content %}
 <header class="app-header">
+  <div class="header-avatar" data-name="{{ user.name }}">{{ user.name[0]|upper }}</div>
   <h1>Mini WhatsApp</h1>
   <span class="user-badge">{{ user.name }}</span>
-  <a href="/front/login" class="header-link">Changer d'utilisateur</a>
+  <a href="/front/login" class="header-link">Changer</a>
 </header>
 
 <main class="rooms-container">
@@ -14,8 +15,14 @@
   {% if rooms %}
     <ul class="room-list">
       {% for room in rooms %}
-        <li class="room-item">
-          <span class="room-name"># {{ room.name }}</span>
+        <li class="room-item {% if room.id in subscribed_ids %}subscribed{% endif %}">
+          <div class="room-avatar" data-name="{{ room.name }}">{{ room.name[0]|upper }}</div>
+          <div class="room-info">
+            <span class="room-name">{{ room.name }}</span>
+            {% if room.id in subscribed_ids %}
+              <span class="room-badge">abonné</span>
+            {% endif %}
+          </div>
           <div class="room-actions">
             {% if room.id in subscribed_ids %}
               <button class="btn-sub active"
@@ -28,20 +35,19 @@
                 S'abonner
               </button>
             {% endif %}
-            <a href="/front/rooms/{{ room.id }}?user_id={{ user.id }}" class="btn-enter">
-              Entrer
-            </a>
+            <a href="/front/rooms/{{ room.id }}?user_id={{ user.id }}" class="btn-enter">Entrer →</a>
           </div>
         </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p class="empty">
-      Aucun salon. Créez-en un depuis le terminal&nbsp;:<br>
+    <div class="empty">
+      <p>Aucun salon disponible.</p>
       <code>http POST http://localhost:8000/rooms name=general</code>
-    </p>
+    </div>
   {% endif %}
 </main>
 
+<script src="/static/js/avatar-colors.js"></script>
 <script src="/static/js/rooms.js"></script>
 {% endblock %}

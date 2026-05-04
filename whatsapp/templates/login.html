@@ -2,21 +2,34 @@
 {% block title %}Connexion – Mini WhatsApp{% endblock %}
 
 {% block content %}
-<div class="login-container">
-  <h1>Mini WhatsApp</h1>
-  <p>Choisissez votre nom d'utilisateur&nbsp;:</p>
-
-  {% if users %}
-    <div class="user-list">
-      {% for user in users %}
-        <a href="/front/rooms?user_id={{ user.id }}" class="user-btn">{{ user.name }}</a>
-      {% endfor %}
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-logo">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="24" fill="#00a884"/>
+        <path d="M24 10C16.268 10 10 16.268 10 24c0 2.938.864 5.676 2.352 7.974L10 38l6.26-2.306A13.93 13.93 0 0024 38c7.732 0 14-6.268 14-14S31.732 10 24 10z" fill="white"/>
+        <path d="M19.5 17c-.4-1-1.1-1-1.5-1h-1.2c-.4 0-1 .15-1.6.75-.5.6-2 1.95-2 4.75s2.05 5.5 2.35 5.9c.25.35 4 6.35 9.85 8.65 4.85 1.9 5.85 1.55 6.9 1.45 1.05-.1 3.35-1.35 3.85-2.7.45-1.3.45-2.45.3-2.7-.15-.25-.55-.4-1.15-.7-.6-.3-3.35-1.65-3.85-1.85-.55-.2-.95-.3-1.35.3-.4.6-1.55 1.85-1.9 2.2-.35.4-.7.45-1.3.15-.6-.3-2.55-1-4.85-3.1-1.8-1.65-3-3.7-3.35-4.3-.35-.65 0-1 .25-1.3.25-.3.55-.7.85-1 .25-.3.35-.5.5-.9.15-.35.1-.7-.05-1L19.5 17z" fill="#00a884"/>
+      </svg>
     </div>
-  {% else %}
-    <p class="empty">
-      Aucun utilisateur. Créez-en un depuis le terminal&nbsp;:<br>
-      <code>http POST http://localhost:8000/users name=alice</code>
-    </p>
-  {% endif %}
+    <h1>Mini WhatsApp</h1>
+    <p>Choisissez votre nom d'utilisateur</p>
+
+    {% if users %}
+      <div class="user-list">
+        {% for user in users %}
+          <a href="/front/rooms?user_id={{ user.id }}" class="user-btn">
+            <span class="avatar" data-name="{{ user.name }}">{{ user.name[0]|upper }}</span>
+            <span class="user-btn-name">{{ user.name }}</span>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">
+        <p>Aucun utilisateur disponible.</p>
+        <code>http POST http://localhost:8000/users name=alice</code>
+      </div>
+    {% endif %}
+  </div>
 </div>
+<script src="/static/js/avatar-colors.js"></script>
 {% endblock %}
