@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Salons – Mini WhatsApp{% endblock %}
+
+{% block content %}
+<header class="app-header">
+  <h1>Mini WhatsApp</h1>
+  <span class="user-badge">{{ user.name }}</span>
+  <a href="/front/login" class="header-link">Changer d'utilisateur</a>
+</header>
+
+<main class="rooms-container">
+  <h2>Salons disponibles</h2>
+
+  {% if rooms %}
+    <ul class="room-list">
+      {% for room in rooms %}
+        <li class="room-item">
+          <span class="room-name"># {{ room.name }}</span>
+          <div class="room-actions">
+            {% if room.id in subscribed_ids %}
+              <button class="btn-sub active"
+                      onclick="toggleSubscription({{ room.id }}, {{ user.id }}, 'unsubscribe')">
+                Abonné ✓
+              </button>
+            {% else %}
+              <button class="btn-sub"
+                      onclick="toggleSubscription({{ room.id }}, {{ user.id }}, 'subscribe')">
+                S'abonner
+              </button>
+            {% endif %}
+            <a href="/front/rooms/{{ room.id }}?user_id={{ user.id }}" class="btn-enter">
+              Entrer
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="empty">
+      Aucun salon. Créez-en un depuis le terminal&nbsp;:<br>
+      <code>http POST http://localhost:8000/rooms name=general</code>
+    </p>
+  {% endif %}
+</main>
+
+<script src="/static/js/rooms.js"></script>
+{% endblock %}

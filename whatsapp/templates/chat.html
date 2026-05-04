@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}#{{ room.name }} – Mini WhatsApp{% endblock %}
+
+{% block content %}
+<header class="chat-header">
+  <a href="/front/rooms?user_id={{ user.id }}" class="header-link">← Retour</a>
+  <h2># {{ room.name }}</h2>
+  <span class="user-badge">{{ user.name }}</span>
+</header>
+
+<div class="chat-wrapper">
+  <div id="messages" class="messages-list"></div>
+
+  <form id="message-form" class="message-form">
+    <input id="message-input" type="text" placeholder="Écrire un message…" autocomplete="off">
+    <button type="submit">Envoyer</button>
+  </form>
+</div>
+
+<script>
+  // Variables injectées côté serveur pour le JS
+  const ROOM_ID = {{ room.id }};
+  const USER_ID = {{ user.id }};
+  const USERNAME = "{{ user.name }}";
+</script>
+<script src="/static/js/chat.js"></script>
+{% endblock %}

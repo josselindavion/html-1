@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Connexion – Mini WhatsApp{% endblock %}
+
+{% block content %}
+<div class="login-container">
+  <h1>Mini WhatsApp</h1>
+  <p>Choisissez votre nom d'utilisateur&nbsp;:</p>
+
+  {% if users %}
+    <div class="user-list">
+      {% for user in users %}
+        <a href="/front/rooms?user_id={{ user.id }}" class="user-btn">{{ user.name }}</a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="empty">
+      Aucun utilisateur. Créez-en un depuis le terminal&nbsp;:<br>
+      <code>http POST http://localhost:8000/users name=alice</code>
+    </p>
+  {% endif %}
+</div>
+{% endblock %}
